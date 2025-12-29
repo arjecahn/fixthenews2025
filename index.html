@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het Goede Nieuws van 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #1a1a1a;
+            --warm-white: #faf8f5;
+            --accent-red: #c41e3a;
+            --soft-gray: #e8e4df;
+            --nature-green: #2d5a27;
+            --ocean-blue: #1e4d6b;
+            --sun-gold: #d4a017;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', Georgia, serif;
+            background-color: var(--warm-white);
+            color: var(--primary-black);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--warm-white);
+            border-bottom: 1px solid var(--soft-gray);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--warm-white) 0%, #f0ebe3 100%);
+        }
+
+        .hero-eyebrow {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--accent-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-intro {
+            max-width: 650px;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--primary-black);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            animation: scroll-dot 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes scroll-dot {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 25px; }
+        }
+
+        /* Chapter Navigation */
+        .chapter-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chapter-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-black);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .chapter-dot:hover,
+        .chapter-dot.active {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        .chapter-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: var(--primary-black);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+        }
+
+        .chapter-dot:hover::after {
+            opacity: 1;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-full {
+            max-width: 100%;
+            padding: 6rem 0;
+        }
+
+        .section-eyebrow {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin: 2rem 0 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lead-paragraph {
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid var(--accent-red);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Big Number Display */
+        .big-number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .big-number-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border: 1px solid var(--soft-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .big-number-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-red);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .big-number-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .big-number-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .big-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--nature-green);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .big-number.blue { color: var(--ocean-blue); }
+        .big-number.gold { color: var(--sun-gold); }
+        .big-number.red { color: var(--accent-red); }
+
+        .big-number-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .big-number-detail {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.5rem;
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.3s;
+        }
+
+        .big-number-card:hover .big-number-detail {
+            opacity: 1;
+            max-height: 100px;
+            margin-top: 1rem;
+        }
+
+        /* Interactive Chart Containers */
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border: 1px solid var(--soft-gray);
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .chart-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--soft-gray);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid var(--soft-gray);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--nature-green);
+            border: 4px solid var(--warm-white);
+        }
+
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-red);
+        }
+
+        /* Species Cards */
+        .species-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .species-card {
+            background: white;
+            border: 1px solid var(--soft-gray);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .species-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .species-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .species-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        }
+
+        .species-name {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+
+        .species-content {
+            padding: 1.5rem;
+        }
+
+        .species-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--soft-gray);
+        }
+
+        .species-stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .species-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--nature-green);
+        }
+
+        .species-story {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Progress Bars */
+        .progress-section {
+            margin: 3rem 0;
+        }
+
+        .progress-item {
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            font-weight: 600;
+        }
+
+        .progress-value {
+            color: var(--accent-red);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--soft-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--nature-green), var(--ocean-blue));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        /* Interactive Map Placeholder */
+        .world-impact {
+            background: var(--primary-black);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .world-impact h2 {
+            color: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .impact-item {
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .impact-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--sun-gold);
+        }
+
+        .impact-region {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sun-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-stat {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+
+        .impact-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            background: var(--primary-black);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.4;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--sun-gold);
+        }
+
+        /* Tabs */
+        .tabs {
+            margin: 3rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid var(--soft-gray);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .tab-button:hover,
+        .tab-button.active {
+            color: var(--primary-black);
+        }
+
+        .tab-button.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Counter Animation */
+        .counter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--warm-white) 0%, #f0ebe3 100%);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .cta-button.primary {
+            background: var(--primary-black);
+            color: white;
+            border: 2px solid var(--primary-black);
+        }
+
+        .cta-button.primary:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary-black);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        footer a {
+            color: var(--sun-gold);
+            text-decoration: none;
+        }
+
+        /* Interactive Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .chapter-nav {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                padding-left: 40px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .big-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Custom Illustrations */
+        .illustration {
+            max-width: 100%;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        .decorative-line {
+            width: 60px;
+            height: 3px;
+            background: var(--accent-red);
+            margin: 2rem auto;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1rem;
+            background: var(--primary-black);
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Custom Slider Styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, #c41e3a, #ff8c00, #d4a017, #2d5a27);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Animated number display */
+        .big-number {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .big-number-card:hover .big-number {
+            transform: scale(1.05);
+        }
+
+        /* Comparison section animations */
+        .comparison-card,
+        .comparison-visual {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .comparison-card:hover,
+        .comparison-visual:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Chart annotation styling */
+        .chart-annotation {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .chart-annotation strong {
+            color: var(--accent-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-content">
+            <div class="nav-logo">DE TELEMETRIE</div>
+            <ul class="nav-links">
+                <li><a href="#klimaat" class="active">Klimaat</a></li>
+                <li><a href="#natuur">Natuur</a></li>
+                <li><a href="#oceanen">Oceanen</a></li>
+                <li><a href="#mensheid">Mensheid</a></li>
+                <li><a href="#gezondheid">Gezondheid</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Chapter Navigation Dots -->
+    <div class="chapter-nav">
+        <div class="chapter-dot active" data-section="hero" data-label="Begin"></div>
+        <div class="chapter-dot" data-section="klimaat" data-label="Klimaat"></div>
+        <div class="chapter-dot" data-section="natuur" data-label="Natuur"></div>
+        <div class="chapter-dot" data-section="oceanen" data-label="Oceanen"></div>
+        <div class="chapter-dot" data-section="mensheid" data-label="Mensheid"></div>
+        <div class="chapter-dot" data-section="gezondheid" data-label="Gezondheid"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <p class="hero-eyebrow">Een Interactief Verhaal</p>
+        <h1>Het Goede Nieuws van 2025</h1>
+        <p class="hero-subtitle">Waarom je dit niet hoorde — en waarom het toch belangrijk is.</p>
+        <div class="decorative-line"></div>
+
+        <div class="intro-box" style="max-width: 700px; text-align: left; background: white; padding: 2rem; border: 1px solid var(--soft-gray); margin: 2rem 0;">
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Waarom kennen we dit nieuws niet?</h3>
+            <p style="margin-bottom: 1rem;">
+                Als mensen zijn we geprogrammeerd om op gevaar te letten. Slecht nieuws activeert ons brein sterker dan goed nieuws — dat hielp onze voorouders te overleven. Media weten dit, en algoritmes versterken het: "rage bait" was Oxford's woord van 2025.
+            </p>
+            <p style="margin-bottom: 1rem;">
+                Het resultaat? Terwijl de wereld op <em>veel</em> gebieden beter wordt, horen we vooral wat er misgaat.
+                Langzame, stille verbeteringen — een kind dat niet meer sterft aan diarree, een bos dat teruggroeit, een energiecentrale die schoon wordt — halen het nieuws niet.
+            </p>
+            <p style="color: #666; font-style: italic;">
+                Dit is een poging om naar de data te kijken. Niet om te ontkennen dat er problemen zijn, maar om te erkennen dat we ze ook aan het oplossen zijn.
+            </p>
+        </div>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- KLIMAAT & ENERGIE -->
+    <section class="section" id="klimaat">
+        <p class="section-eyebrow reveal">Hoofdstuk I</p>
+        <h2 class="reveal">De Stille Revolutie in Energie</h2>
+
+        <p class="lead-paragraph reveal">
+            In de eerste helft van 2025 gebeurde iets historisch: voor het eerst produceerde hernieuwbare energie meer elektriciteit dan steenkool — wereldwijd.
+        </p>
+
+        <p class="reveal">
+            Dit is het kantelpunt waar wetenschappers, activisten en beleidsmakers decennia naar hebben gewerkt.
+            Na meer dan 50 jaar als dominante energiebron, werd steenkool ingehaald. En bijna niemand heeft het gehoord.
+        </p>
+
+        <div class="chart-container reveal">
+            <h3 class="chart-title">Het Historische Kantelpunt</h3>
+            <p class="chart-subtitle">Wereldwijde elektriciteitsproductie — het moment dat alles veranderde</p>
+            <div class="chart-wrapper">
+                <canvas id="energyChart"></canvas>
+            </div>
+            <div class="chart-annotation" style="margin-top: 1rem; padding: 1rem; background: #f5f5f0; border-left: 3px solid var(--nature-green);">
+                <strong>Het Kantelpunt (H1 2025):</strong> Hernieuwbaar bereikte 34,3% van alle wereldwijde elektriciteit,
+                terwijl steenkool daalde naar 33,1%. Voor het eerst in meer dan 50 jaar is steenkool niet langer de grootste bron.
+            </div>
+        </div>
+
+        <!-- Vergelijkingsvisualisatie met foto -->
+        <div class="comparison-section reveal" style="margin: 3rem 0;">
+            <h3 style="text-align: center; margin-bottom: 2rem;">Hoe groot zijn deze getallen eigenlijk?</h3>
+
+            <!-- Foto met vergelijking -->
+            <div class="solar-comparison" style="background: white; border: 1px solid var(--soft-gray); overflow: hidden; margin-bottom: 2rem;">
+                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200" alt="Zonnepanelen veld" style="width: 100%; height: 300px; object-fit: cover;">
+                <div style="padding: 2rem;">
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                        Vergelijk het met Nederland
+                    </h4>
+                    <p style="margin-bottom: 1.5rem;">
+                        Zonnepark <strong>Harderwold</strong> in Zeewolde: 81.879 zonnepanelen, 44,4 MW capaciteit, genoeg voor 15.000 huishoudens.
+                    </p>
+                    <div style="background: #f5f5f0; padding: 1.5rem; border-left: 4px solid var(--nature-green);">
+                        <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--nature-green);">6.243×</div>
+                        <p style="margin-top: 0.5rem;">
+                            China installeerde in 2024 het equivalent van <strong>6.243 keer zonnepark Harderwold</strong> — in één jaar.
+                        </p>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                            (277.000 MW ÷ 44,4 MW = 6.243)
+                        </p>
+                    </div>
+
+                    <!-- Extra context mei 2025 -->
+                    <div style="background: #e8f4e8; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+                        <p style="margin: 0; font-size: 0.95rem; color: #2d5a27;">
+                            <strong>Update mei 2025:</strong> China installeerde in één maand <strong>230 miljoen zonnepanelen</strong> — dat is <strong>2.809 keer Harderwold</strong> in 31 dagen, en evenveel als Duitsland in zijn hele geschiedenis heeft opgebouwd. Dat is ~91 Harderwolds per dag — oftewel bijna 4 Harderwolds per uur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-card" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <div class="big-number" style="font-size: 4rem;">277 GW</div>
+                        <div class="big-number-label">Zonne-energie China 2024</div>
+                    </div>
+                    <div style="font-size: 3rem; color: var(--accent-red);">></div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <div class="big-number blue" style="font-size: 4rem;">121 GW</div>
+                        <div class="big-number-label">Totale VS zonne-capaciteit</div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; color: #666; text-align: center; font-style: italic;">
+                    China installeerde in één jaar meer zonne-energie dan de VS in totaal heeft opgebouwd.
+                </p>
+            </div>
+
+            <!-- China vs West visualisatie -->
+            <div class="comparison-visual reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 1rem;">Waarom dit ertoe doet: het argument ontkracht</h4>
+                <p style="margin-bottom: 1.5rem; color: #555;">
+                    Je hoort vaak: "Waarom zouden wij actie ondernemen? China stoot veel meer uit dan wij!"
+                    Maar kijk wat er werkelijk gebeurt:
+                </p>
+                <div style="display: flex; gap: 1rem; align-items: stretch; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <div style="flex: 44; background: var(--nature-green); color: white; padding: 1.5rem; text-align: center; min-height: 120px; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 2rem; font-weight: bold;">44%</div>
+                        <div>China</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">van alle wind & zon</div>
+                    </div>
+                    <div style="flex: 56; background: var(--soft-gray); padding: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <div style="flex: 1; background: var(--ocean-blue); color: white; padding: 1rem; text-align: center; min-width: 80px;">
+                            <div style="font-size: 1.2rem;">EU</div>
+                        </div>
+                        <div style="flex: 1; background: #4a7c59; color: white; padding: 1rem; text-align: center; min-width: 80px;">
+                            <div style="font-size: 1.2rem;">VS</div>
+                        </div>
+                        <div style="flex: 1; background: var(--sun-gold); color: white; padding: 1rem; text-align: center; min-width: 80px;">
+                            <div style="font-size: 1.2rem;">India</div>
+                        </div>
+                        <div style="flex: 1; background: #888; color: white; padding: 1rem; text-align: center; min-width: 80px;">
+                            <div style="font-size: 1.2rem;">Rest</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.95rem;">
+                    China installeert meer schone energie dan de <strong>rest van de wereld samen</strong>.
+                    Hun CO2-uitstoot is sinds maart 2024 vlak of dalend — 18 maanden lang.
+                    Ze schieten ons niet voorbij in vervuiling; ze schieten ons voorbij in de <em>oplossing</em>.
+                </p>
+            </div>
+
+            <!-- Bron -->
+            <div style="background: #f9f9f6; padding: 1rem; border-radius: 4px; font-size: 0.85rem; color: #666;">
+                <strong>Bronnen:</strong>
+                <a href="https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/" target="_blank" style="color: var(--ocean-blue);">Ember Global Electricity Review 2025</a> |
+                <a href="https://www.carbonbrief.org/analysis-chinas-co2-emissions-have-now-been-flat-or-falling-for-18-months/" target="_blank" style="color: var(--ocean-blue);">Carbon Brief: China CO2 Analysis</a> |
+                <a href="https://globalenergymonitor.org/report/wind-and-solar-year-in-review-2024/" target="_blank" style="color: var(--ocean-blue);">Global Energy Monitor</a>
+            </div>
+        </div>
+
+        <div class="big-number-grid reveal">
+            <div class="big-number-card" onclick="this.classList.toggle('expanded')">
+                <div class="big-number">277</div>
+                <div class="big-number-label">Gigawatt Zon</div>
+                <div class="big-number-detail">In één jaar — meer dan 2× de totale zonne-capaciteit van de VS</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number gold">79</div>
+                <div class="big-number-label">Gigawatt Wind</div>
+                <div class="big-number-detail">Nieuw in 2024 — China's totaal is nu 521 GW</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number blue">52%</div>
+                <div class="big-number-label">EV Productie</div>
+                <div class="big-number-detail">Meer dan de helft van alle nieuwe Chinese auto's is elektrisch</div>
+            </div>
+        </div>
+
+        <h3 class="reveal">Klimaatprojecties: Van Ramp naar Hoop</h3>
+
+        <p class="reveal">
+            De verwachte opwarming is niet een vast getal — het verandert door onze acties.
+            Bekijk hoe de projecties over tijd zijn verbeterd:
+        </p>
+
+        <div class="chart-container reveal">
+            <h3 class="chart-title">Hoe Onze Toekomst Veranderde</h3>
+            <p class="chart-subtitle">Verwachte opwarming door de jaren heen — scroll door de tijdlijn</p>
+            <div class="chart-wrapper">
+                <canvas id="warmingChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Interactieve Klimaat Tijdlijn -->
+        <div class="climate-timeline reveal" style="margin: 3rem 0;">
+            <div class="timeline-slider" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <span style="font-weight: bold;">2010</span>
+                    <span style="font-weight: bold;">2024</span>
+                </div>
+                <input type="range" id="climateSlider" min="2010" max="2024" value="2024"
+                       style="width: 100%; height: 8px; cursor: pointer;">
+
+                <div id="climateInfo" style="margin-top: 2rem; text-align: center; min-height: 200px;">
+                    <div class="big-number" id="tempDisplay" style="font-size: 5rem; transition: all 0.3s;">2.7°C</div>
+                    <div class="big-number-label" id="yearDisplay">Huidige Projectie (2024)</div>
+                    <p id="climateDescription" style="margin-top: 1rem; color: #666; max-width: 500px; margin-left: auto; margin-right: auto;">
+                        Door snelle actie en technologische vooruitgang is de verwachte opwarming gedaald van 4°C+ naar 2,7°C.
+                    </p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 2rem; font-size: 0.9rem; color: #888;">
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 20px; background: var(--accent-red); border-radius: 50%; margin: 0 auto 0.5rem;"></div>
+                        <div>Catastrofaal</div>
+                        <div>>4°C</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 20px; background: #ff8c00; border-radius: 50%; margin: 0 auto 0.5rem;"></div>
+                        <div>Ernstig</div>
+                        <div>3-4°C</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 20px; background: var(--sun-gold); border-radius: 50%; margin: 0 auto 0.5rem;"></div>
+                        <div>Uitdagend</div>
+                        <div>2-3°C</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 20px; height: 20px; background: var(--nature-green); border-radius: 50%; margin: 0 auto 0.5rem;"></div>
+                        <div>Parijs-doel</div>
+                        <div>1.5°C</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lead-paragraph reveal" style="background: linear-gradient(135deg, rgba(45,90,39,0.1), rgba(30,77,107,0.1)); padding: 2rem; border-radius: 8px; border-left-color: var(--nature-green);">
+            <strong>Wat betekent dit?</strong><br>
+            Het verschil tussen 4°C en 2,7°C is niet "iets minder erg" — het is het verschil tussen een wereld die grotendeels onbewoonbaar wordt en een wereld waar we ons kunnen aanpassen. Elke tiende graad telt.
+        </div>
+
+        <!-- Bron klimaatprojecties -->
+        <div style="background: #f9f9f6; padding: 1rem; border-radius: 4px; font-size: 0.85rem; color: #666; margin-top: 1rem;">
+            <strong>Bron:</strong>
+            <a href="https://climateactiontracker.org/global/temperatures/" target="_blank" style="color: var(--ocean-blue);">Climate Action Tracker</a> —
+            Onafhankelijke wetenschappelijke organisatie die klimaatbeleid volgt sinds 2009. In 2015 stond de projectie op ~3,6°C; nu op ~2,6-2,7°C.
+            De projecties betreffen verwachte opwarming rond 2100 ten opzichte van pre-industrieel niveau.
+        </div>
+
+        <!-- Tabs voor landen -->
+        <div class="tabs reveal">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="china">China</button>
+                <button class="tab-button" data-tab="pakistan">Pakistan</button>
+                <button class="tab-button" data-tab="uk">Verenigd Koninkrijk</button>
+                <button class="tab-button" data-tab="usa">Verenigde Staten</button>
+            </div>
+
+            <div class="tab-content active" id="china">
+                <h3>China's Groene Transformatie</h3>
+                <p>China's CO2-uitstoot is al 18 maanden vlak of dalend — een ongekende trendbreuk voor 's werelds grootste uitstoter. Het land installeert meer hernieuwbare energie dan de rest van de wereld samen.</p>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">EV's van totale autoproductie</span>
+                            <span class="progress-value">52%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="52"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Zonne-energie groei (jaar-op-jaar)</span>
+                            <span class="progress-value">+85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="pakistan">
+                <h3>Pakistan's Zonne-Wonder</h3>
+                <p>Zes jaar geleden: nul procent zonne-energie. Nu: een derde van alle elektriciteit komt van de zon. Dit is een van de snelste energietransities in de geschiedenis.</p>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Elektriciteit van zonne-energie</span>
+                            <span class="progress-value">33%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="33"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="uk">
+                <h3>Verenigd Koninkrijk</h3>
+                <p>Meer dan de helft van alle Britse elektriciteit komt nu van wind en zon. Het land dat de Industriële Revolutie begon, leidt nu de groene revolutie.</p>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Elektriciteit van wind & zon</span>
+                            <span class="progress-value">50%+</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="usa">
+                <h3>Verenigde Staten</h3>
+                <p>92% van al het nieuwe elektriciteitsproductie in de VS is hernieuwbaar. De transitie is niet langer een vraag van "of", maar van "hoe snel".</p>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Nieuwe capaciteit van hernieuwbaar</span>
+                            <span class="progress-value">92%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NATUUR & BIODIVERSITEIT -->
+    <section class="section" id="natuur">
+        <p class="section-eyebrow reveal">Hoofdstuk II</p>
+        <h2 class="reveal">Het Grote Herstel</h2>
+
+        <p class="lead-paragraph reveal">
+            Terwijl we gefocust zijn op wat we verliezen, gebeurt er iets buitengewoons: soorten die we bijna kwijt waren, komen terug.
+        </p>
+
+        <div class="species-grid reveal">
+            <div class="species-card">
+                <div class="species-image" style="background-image: url('https://images.unsplash.com/photo-1516728778615-2d590ea1855e?w=600&q=80'); background-color: #c9b896;">
+                    <span class="species-name">Saiga-Antilope</span>
+                </div>
+                <div class="species-content">
+                    <div class="species-stat">
+                        <span class="species-stat-label">2015</span>
+                        <span class="species-stat-value" style="color: var(--accent-red);">~50.000</span>
+                    </div>
+                    <div class="species-stat">
+                        <span class="species-stat-label">2024</span>
+                        <span class="species-stat-value">~1.000.000</span>
+                    </div>
+                    <p class="species-story">In 2015 doodde een virusuitbraak 200.000+ dieren in weken. Toch herstelde de populatie spectaculair dankzij anti-stroperij patrouilles in Kazachstan en Mongolië.</p>
+                    <div style="font-size: 0.7rem; color: #999; margin-top: 0.5rem;">Foto: Wikimedia Commons | <a href="https://www.fauna-flora.org/species/saiga/" target="_blank" style="color: #999;">Fauna & Flora</a></div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <div class="species-image" style="background-image: url('https://images.unsplash.com/photo-1612356700845-4b3fd814f44e?w=600&q=80'); background-color: #8b7355;">
+                    <span class="species-name">Iberische Lynx</span>
+                </div>
+                <div class="species-content">
+                    <div class="species-stat">
+                        <span class="species-stat-label">2001</span>
+                        <span class="species-stat-value" style="color: var(--accent-red);">62</span>
+                    </div>
+                    <div class="species-stat">
+                        <span class="species-stat-label">2024</span>
+                        <span class="species-stat-value">2.401</span>
+                    </div>
+                    <p class="species-story">Van 62 naar 2.401 — bijna 40× zoveel. IUCN-status verbeterd van "Critically Endangered" naar "Vulnerable". Gered door fokprogramma's en herintroductie van konijnen (hun prooi).</p>
+                    <div style="font-size: 0.7rem; color: #999; margin-top: 0.5rem;">Foto: Zdeněk Macháček/Unsplash | <a href="https://iucn.org/news/202407/recovery-iberian-lynx-conservation-success-spain" target="_blank" style="color: #999;">IUCN</a></div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <div class="species-image" style="background-image: url('https://images.unsplash.com/photo-1564166174574-a9666f590437?w=600&q=80'); background-color: #6b5b4f;">
+                    <span class="species-name">Europese Wolf</span>
+                </div>
+                <div class="species-content">
+                    <div class="species-stat">
+                        <span class="species-stat-label">2012</span>
+                        <span class="species-stat-value" style="color: var(--accent-red);">~12.000</span>
+                    </div>
+                    <div class="species-stat">
+                        <span class="species-stat-label">2022</span>
+                        <span class="species-stat-value">21.500+</span>
+                    </div>
+                    <p class="species-story">+58% in tien jaar. Wolven leven nu weer in bijna alle Europese landen, inclusief Nederland en België.</p>
+                    <div style="font-size: 0.7rem; color: #999; margin-top: 0.5rem;">Foto: Unsplash</div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <div class="species-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Tiger_in_Ranthambhore.jpg/640px-Tiger_in_Ranthambhore.jpg'); background-color: #d4a574;">
+                    <span class="species-name">Bengaalse Tijger</span>
+                </div>
+                <div class="species-content">
+                    <div class="species-stat">
+                        <span class="species-stat-label">Verandering</span>
+                        <span class="species-stat-value">2× verdubbeld</span>
+                    </div>
+                    <div class="species-stat">
+                        <span class="species-stat-label">Periode</span>
+                        <span class="species-stat-value">10 jaar</span>
+                    </div>
+                    <p class="species-story">India's tijgerpopulatie is in een decennium verdubbeld door strenge bescherming en corridors tussen reservaten.</p>
+                    <div style="font-size: 0.7rem; color: #999; margin-top: 0.5rem;">Foto: Wikimedia Commons</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="reveal">De Bossen Keren Terug</h3>
+
+        <div class="chart-container reveal">
+            <h3 class="chart-title">Wereldwijde Ontbossing Over Tijd</h3>
+            <p class="chart-subtitle">Hoe snel verliezen we bos? Steeds minder.</p>
+            <div class="chart-wrapper">
+                <canvas id="forestChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Visuele vergelijking ontbossing met Europa kaart -->
+        <div class="forest-context reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+            <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem;">Wat betekent dit in de praktijk?</h4>
+
+            <!-- Europa kaart met Bulgarije en Nederland -->
+            <div style="background: #e8f4f8; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <svg viewBox="0 0 400 300" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+                    <!-- Simpele Europa outline -->
+                    <path d="M50,150 Q80,100 120,90 Q150,85 180,95 Q200,80 230,85 Q260,75 290,90 Q320,85 350,100 Q360,130 355,160 Q340,180 320,190 Q290,200 260,195 Q230,210 200,200 Q170,220 140,210 Q110,200 80,190 Q60,175 50,150 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
+                    <!-- Nederland (klein, noordwest) -->
+                    <rect x="145" y="105" width="20" height="25" fill="#2d5a27" stroke="#1a3d18" stroke-width="1" rx="2"/>
+                    <text x="155" y="145" font-size="10" fill="#1a3d18" text-anchor="middle" font-weight="bold">NL</text>
+                    <!-- Bulgarije (groter, zuidoost) -->
+                    <rect x="270" y="150" width="45" height="35" fill="#c41e3a" stroke="#8b1528" stroke-width="1" rx="2"/>
+                    <text x="292" y="200" font-size="10" fill="#8b1528" text-anchor="middle" font-weight="bold">BG</text>
+                </svg>
+                <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 1rem; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: #c41e3a; border-radius: 3px;"></div>
+                        <span><strong>Bulgarije</strong>: 11,1 miljoen ha</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: #2d5a27; border-radius: 3px;"></div>
+                        <span><strong>Nederland</strong>: 4,2 miljoen ha</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <div style="text-align: center; padding: 1.5rem; background: rgba(196, 30, 58, 0.1); border-radius: 8px;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-red);">10,7 miljoen ha/jaar</div>
+                    <div style="color: #666; margin-bottom: 0.5rem;">1990-2000</div>
+                    <div style="width: 60px; height: 60px; background: #c41e3a; margin: 1rem auto; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">BG</div>
+                    <p style="font-size: 0.95rem;">Elk jaar verdween een gebied <strong>zo groot als Bulgarije</strong></p>
+                </div>
+                <div style="font-size: 3rem; display: flex; align-items: center; justify-content: center; color: var(--nature-green);">→</div>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(45, 90, 39, 0.1); border-radius: 8px;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--nature-green);">4,12 miljoen ha/jaar</div>
+                    <div style="color: #666; margin-bottom: 0.5rem;">2015-2025</div>
+                    <div style="width: 30px; height: 40px; background: #2d5a27; margin: 1rem auto; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">NL</div>
+                    <p style="font-size: 0.95rem;">Nu verdwijnt een gebied <strong>zo groot als Nederland</strong></p>
+                </div>
+            </div>
+
+            <div style="background: #f5f5f0; padding: 1.5rem; margin-top: 2rem; border-left: 4px solid var(--nature-green);">
+                <p style="margin: 0;">
+                    <strong>Let op:</strong> We verliezen nog steeds bos — dat is nog niet goed genoeg. Maar de trend is duidelijk: de snelheid waarmee we bos verliezen is <strong>meer dan gehalveerd</strong> in 25 jaar. En tegelijkertijd groeit er nieuw bos: 18 miljoen km² tropisch bos is in regeneratie.
+                </p>
+            </div>
+        </div>
+
+        <div class="big-number-grid reveal">
+            <div class="big-number-card">
+                <div class="big-number">61%</div>
+                <div class="big-number-label">Minder Bosverlies</div>
+                <div class="big-number-detail">Van 10,7 naar 4,12 miljoen hectare per jaar sinds 1990</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number gold">18M km²</div>
+                <div class="big-number-label">Tropisch Bos</div>
+                <div class="big-number-detail">In regeneratie — een gebied groter dan Rusland</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number blue">4,14 mld</div>
+                <div class="big-number-label">Hectare Bos</div>
+                <div class="big-number-detail">Bossen bedekken nog steeds 31% van het landoppervlak</div>
+            </div>
+        </div>
+
+        <!-- Bron -->
+        <div style="background: #f9f9f6; padding: 1rem; border-radius: 4px; font-size: 0.85rem; color: #666; margin-top: 1rem;">
+            <strong>Bron:</strong>
+            <a href="https://www.fao.org/forest-resources-assessment/en" target="_blank" style="color: var(--ocean-blue);">FAO Global Forest Resources Assessment 2025</a> —
+            De meest uitgebreide wereldwijde bosinventarisatie, uitgevoerd door de VN.
+        </div>
+    </section>
+
+    <!-- OCEANEN -->
+    <section class="section-full" id="oceanen">
+        <div class="quote-block">
+            <p class="quote-text">"We hebben eindelijk de wet getekend die de oceanen beschermt die niemand bezit — de helft van onze planeet."</p>
+            <p class="quote-author">Over het UN High Seas Treaty, 2024</p>
+        </div>
+
+        <div class="section">
+            <p class="section-eyebrow reveal">Hoofdstuk III</p>
+            <h2 class="reveal">De Blauwe Revolutie</h2>
+
+            <p class="lead-paragraph reveal">
+                Voor het eerst in de geschiedenis hebben we een bindend verdrag om de internationale wateren te beschermen — de helft van ons planeetoppervlak.
+            </p>
+
+            <!-- Kaart Frans-Polynesië - SVG visualisatie -->
+            <div class="ocean-map reveal" style="background: white; border: 1px solid var(--soft-gray); overflow: hidden; margin: 2rem 0;">
+                <!-- SVG wereldkaart met Frans-Polynesië gemarkeerd -->
+                <div style="background: linear-gradient(180deg, #87CEEB 0%, #1e4d6b 100%); padding: 2rem;">
+                    <svg viewBox="0 0 500 250" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+                        <!-- Oceaan achtergrond -->
+                        <rect width="500" height="250" fill="#1e4d6b"/>
+                        <!-- Simpele continenten -->
+                        <ellipse cx="120" cy="100" rx="60" ry="50" fill="#8fbc8f" opacity="0.7"/> <!-- Noord-Amerika -->
+                        <ellipse cx="100" cy="170" rx="35" ry="45" fill="#8fbc8f" opacity="0.7"/> <!-- Zuid-Amerika -->
+                        <ellipse cx="250" cy="90" rx="40" ry="35" fill="#8fbc8f" opacity="0.7"/> <!-- Europa -->
+                        <ellipse cx="260" cy="150" rx="45" ry="40" fill="#8fbc8f" opacity="0.7"/> <!-- Afrika -->
+                        <ellipse cx="380" cy="110" rx="70" ry="50" fill="#8fbc8f" opacity="0.7"/> <!-- Azië -->
+                        <ellipse cx="420" cy="190" rx="35" ry="25" fill="#8fbc8f" opacity="0.7"/> <!-- Australië -->
+                        <!-- Frans-Polynesië locatie (Stille Oceaan) -->
+                        <circle cx="60" cy="180" r="30" fill="rgba(212, 160, 23, 0.4)" stroke="#d4a017" stroke-width="3"/>
+                        <circle cx="60" cy="180" r="5" fill="#d4a017"/>
+                        <text x="60" y="220" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Frans-Polynesië</text>
+                        <!-- Pijl en label -->
+                        <text x="250" y="30" font-size="12" fill="white" text-anchor="middle">'s Werelds Grootste Mariene Beschermingsgebied</text>
+                    </svg>
+                </div>
+                <div style="padding: 2rem;">
+                    <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">5 Miljoen km² Beschermd</h4>
+                    <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+                        <div>
+                            <div class="big-number blue" style="font-size: 3rem;">5M km²</div>
+                            <div class="big-number-label">Beschermd gebied</div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <p style="color: #555; margin-bottom: 1rem;">
+                                Ter vergelijking: dit is groter dan de <strong>Europese Unie</strong> (4,2 miljoen km²).
+                            </p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div style="width: 80px; height: 50px; background: var(--sun-gold); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold; border-radius: 4px;">Frans-Poly</div>
+                                <span>></span>
+                                <div style="width: 70px; height: 45px; background: var(--ocean-blue); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold; border-radius: 4px;">EU</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="big-number-grid reveal">
+                <div class="big-number-card">
+                    <div class="big-number blue">5M km²</div>
+                    <div class="big-number-label">Grootste Reservaat</div>
+                    <div class="big-number-detail">Frans-Polynesië — groter dan de EU</div>
+                </div>
+                <div class="big-number-card">
+                    <div class="big-number">50</div>
+                    <div class="big-number-label">Vissoorten Hersteld</div>
+                    <div class="big-number-detail">In de VS sinds 2000 — overbevissing is bijna gestopt</div>
+                </div>
+                <div class="big-number-card">
+                    <div class="big-number" style="color: var(--nature-green);">Least Concern</div>
+                    <div class="big-number-label">Groene Zeeschildpad</div>
+                    <div class="big-number-detail">IUCN 2025: van "Endangered" naar veilig — 2 statussen overgeslagen</div>
+                </div>
+            </div>
+
+            <!-- Groene zeeschildpad context -->
+            <div class="reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 1.5rem; margin: 1rem 0 2rem 0;">
+                <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-family: 'Playfair Display', serif;">Groene Zeeschildpad: Historische Verbetering</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin: 0;">
+                            In oktober 2025 verbeterde de IUCN Red List de status van de groene zeeschildpad van "Endangered" rechtstreeks naar "Least Concern" — de twee tussenliggende categorieën werden overgeslagen. Dit is uitzonderlijk zeldzaam.
+                        </p>
+                    </div>
+                    <div style="text-align: center; flex-shrink: 0;">
+                        <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.5rem;">Nesttellingen wereldwijd</div>
+                        <div style="display: flex; align-items: baseline; gap: 0.75rem;">
+                            <div>
+                                <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #888;">~420.000</div>
+                                <div style="font-size: 0.75rem; color: #aaa;">1970s-80s</div>
+                            </div>
+                            <div style="color: #ccc;">→</div>
+                            <div>
+                                <div style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--nature-green);">538.763</div>
+                                <div style="font-size: 0.75rem; color: #888;">2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: #888; margin-top: 1rem;">
+                    Bron: <a href="https://oliveridleyproject.org/news/press-release/green-turtles-downlisted-on-iucn-red-list-but-conservation-challenges-remain/" target="_blank" style="color: var(--ocean-blue);">IUCN Red List 2025</a>
+                </div>
+            </div>
+
+            <h3 class="reveal">Walvissen Keren Terug</h3>
+            <p class="reveal">
+                Na decennia van commerciële jacht herstellen walvispopulaties wereldwijd. Bultruggen, grijze walvissen en andere soorten tonen sterke herstelpatronen in alle oceanen.
+            </p>
+
+            <!-- Bultrug statistiek -->
+            <div class="reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
+                    <div style="flex: 1; min-width: 200px; text-align: center;">
+                        <div style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">Oost-Australië Bultruggen</div>
+                        <div style="display: flex; justify-content: center; align-items: baseline; gap: 1rem;">
+                            <div>
+                                <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-red);">150</div>
+                                <div style="font-size: 0.8rem; color: #888;">1960s</div>
+                            </div>
+                            <div style="font-size: 2rem; color: #ccc;">→</div>
+                            <div>
+                                <div style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--ocean-blue);">50.000+</div>
+                                <div style="font-size: 0.8rem; color: #888;">2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex: 2; min-width: 250px;">
+                        <p style="color: #555; margin-bottom: 0.75rem;">
+                            In de jaren '60 waren er nog maar <strong>150 bultruggen</strong> over langs de Australische oostkust — bijna uitgestorven door de walvisjacht.
+                        </p>
+                        <p style="color: #555; margin-bottom: 0;">
+                            Nu zijn het er <strong>meer dan 50.000</strong> — dat is méér dan vóór de walvisjacht begon (~30.000). De populatie groeit nog steeds met 11% per jaar.
+                        </p>
+                        <div style="font-size: 0.8rem; color: #888; margin-top: 0.75rem;">
+                            Bron: <a href="https://www.abc.net.au/news/science/2025-10-07/humpback-whales-eastern-population-numbers-rebound-estimate/105843256" target="_blank" style="color: var(--ocean-blue);">ABC Australia</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Walvissen en taal onderzoek -->
+            <div class="whale-research reveal" style="background: linear-gradient(135deg, #1e4d6b, #0d3347); color: white; padding: 2rem; margin: 2rem 0; border-radius: 8px;">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                    Doorbraak: We Beginnen Walvissen Te Begrijpen
+                </h4>
+                <p style="margin-bottom: 1.5rem; opacity: 0.9;">
+                    In 2024 maakten onderzoekers van MIT en Project CETI een historische ontdekking: potvissen gebruiken een soort "fonetisch alfabet" — net als mensen.
+                </p>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <p style="font-style: italic; margin-bottom: 1rem;">
+                        "Dit is mogelijk het eerste voorbeeld buiten menselijke taal waar communicatie het linguïstische concept van 'dualiteit van patronen' laat zien — individueel betekenisloze elementen die gecombineerd worden tot grotere betekenisvolle eenheden, zoals lettergrepen die woorden vormen."
+                    </p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">— Prof. Daniela Rus, MIT CSAIL</p>
+                </div>
+
+                <!-- AI Uitleg sectie -->
+                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h5 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--sun-gold);">Hoe Werkt Dit? De "Vorm van Taal"</h5>
+
+                    <p style="margin-bottom: 1rem; opacity: 0.9; font-size: 0.95rem;">
+                        Aza Raskin, oprichter van de <a href="https://www.earthspecies.org/" target="_blank" style="color: var(--sun-gold);">Earth Species Project</a>, legt uit hoe AI kan helpen:
+                    </p>
+
+                    <!-- Vector space visualisatie -->
+                    <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <svg viewBox="0 0 400 200" style="width: 100%; max-width: 400px; display: block; margin: 0 auto;">
+                            <!-- Achtergrond -->
+                            <rect width="400" height="200" fill="transparent"/>
+                            <!-- Menselijke taal cluster -->
+                            <circle cx="120" cy="100" r="60" fill="rgba(45, 90, 39, 0.3)" stroke="#2d5a27" stroke-width="2"/>
+                            <text x="120" y="105" font-size="11" fill="white" text-anchor="middle">Menselijke</text>
+                            <text x="120" y="120" font-size="11" fill="white" text-anchor="middle">Taal</text>
+                            <!-- Walvis taal cluster -->
+                            <circle cx="280" cy="100" r="60" fill="rgba(30, 77, 107, 0.3)" stroke="#1e4d6b" stroke-width="2"/>
+                            <text x="280" y="105" font-size="11" fill="white" text-anchor="middle">Walvis</text>
+                            <text x="280" y="120" font-size="11" fill="white" text-anchor="middle">Communicatie</text>
+                            <!-- Overlapping/verbinding -->
+                            <path d="M180,100 Q200,70 220,100 Q200,130 180,100" fill="rgba(212, 160, 23, 0.5)" stroke="#d4a017" stroke-width="2"/>
+                            <text x="200" y="50" font-size="9" fill="#d4a017" text-anchor="middle">Gedeelde</text>
+                            <text x="200" y="62" font-size="9" fill="#d4a017" text-anchor="middle">structuren</text>
+                            <!-- Woorden als punten -->
+                            <circle cx="90" cy="80" r="3" fill="white"/>
+                            <circle cx="130" cy="70" r="3" fill="white"/>
+                            <circle cx="150" cy="110" r="3" fill="white"/>
+                            <circle cx="100" cy="130" r="3" fill="white"/>
+                            <circle cx="250" cy="80" r="3" fill="white"/>
+                            <circle cx="290" cy="70" r="3" fill="white"/>
+                            <circle cx="310" cy="110" r="3" fill="white"/>
+                            <circle cx="260" cy="130" r="3" fill="white"/>
+                        </svg>
+                        <p style="text-align: center; font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
+                            Vector Space: woorden/geluiden als punten in een multidimensionale ruimte
+                        </p>
+                    </div>
+
+                    <div style="font-size: 0.9rem; opacity: 0.9;">
+                        <p style="margin-bottom: 0.8rem;">
+                            <strong>1. Vectoren:</strong> AI zoals ChatGPT plaatst woorden als punten in een meerdimensionale ruimte.
+                            "Koning" staat bij "Koningin" zoals "Man" bij "Vrouw" — de relaties vormen een <em>vorm</em>.
+                        </p>
+                        <p style="margin-bottom: 0.8rem;">
+                            <strong>2. Universele patronen:</strong> Deze vormen blijken vergelijkbaar te zijn in verschillende talen.
+                            Daarom kan AI 200+ talen tegelijk vertalen zonder woordenboeken.
+                        </p>
+                        <p>
+                            <strong>3. De grote vraag:</strong> Als walvissen ook patronen in hun communicatie hebben,
+                            kunnen we dan de "vorm" van hun taal matchen met die van ons?
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video/podcast link -->
+                <div style="background: rgba(212, 160, 23, 0.2); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px solid rgba(212, 160, 23, 0.5);">
+                    <p style="margin: 0; font-size: 0.95rem;">
+                        <strong>Wil je meer weten?</strong> Luister naar Aza Raskin in de podcast
+                        <a href="https://www.humanetech.com/podcast/talking-with-animals-using-ai" target="_blank" style="color: var(--sun-gold);">"Talking With Animals Using AI"</a>
+                        van het Center for Humane Technology, of bekijk zijn gesprek met
+                        <a href="https://simonsinek.com/podcast/episodes/talking-to-animals-with-aza-raskin/" target="_blank" style="color: var(--sun-gold);">Simon Sinek</a>.
+                    </p>
+                </div>
+
+                <!-- Jane Goodall Quote -->
+                <div style="display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.08); border-radius: 8px; border-left: 4px solid var(--sun-gold);">
+                    <img src="https://cdn.prod.website-files.com/630ea9b1fcc91e6ca07956a2/63193b23786d18328be92344_jane%20goodall%20WSJ.png"
+                         alt="Dr. Jane Goodall"
+                         style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--sun-gold);">
+                    <div>
+                        <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 0.75rem; line-height: 1.5;">
+                            "Ever since I was a child, I've dreamed of understanding what animals are saying. How wonderful that is now a real possibility."
+                        </p>
+                        <p style="font-size: 0.9rem; opacity: 0.8; margin: 0;">
+                            — Dr. Jane Goodall
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem;">
+                    <strong>Bronnen:</strong>
+                    <a href="https://www.projectceti.org/" target="_blank" style="color: var(--sun-gold);">Project CETI</a> |
+                    <a href="https://www.earthspecies.org/" target="_blank" style="color: var(--sun-gold);">Earth Species Project</a> |
+                    <a href="https://news.mit.edu/2024/csail-ceti-explores-sperm-whale-alphabet-0507" target="_blank" style="color: var(--sun-gold);">MIT News</a> |
+                    <a href="https://www.nature.com/articles/s41467-024-47221-8" target="_blank" style="color: var(--sun-gold);">Nature Communications (2024)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENSELIJKE VOORUITGANG -->
+    <section class="section" id="mensheid">
+        <p class="section-eyebrow reveal">Hoofdstuk IV</p>
+        <h2 class="reveal">De Menselijke Vooruitgang</h2>
+
+        <p class="lead-paragraph reveal">
+            Achter elke statistiek staat een mens. Een kind dat naar school kan. Een moeder met schoon water. Een vader met werk.
+        </p>
+
+        <!-- Uitgebreide basisbehoeften visualisatie -->
+        <div class="basic-needs-full reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 0.5rem;">Toegang tot Basisbehoeften</h3>
+            <p style="color: #666; margin-bottom: 2rem;">Wereldbevolking: <strong>8 miljard mensen</strong> (2024)</p>
+
+            <!-- Drinkwater -->
+            <div style="margin-bottom: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <h4 style="margin: 0;">Veilig Drinkwater</h4>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.9rem; color: #888;">2015: 68%</span>
+                        <span style="margin: 0 0.5rem;">→</span>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green);">74%</span>
+                    </div>
+                </div>
+                <div style="height: 50px; background: #eee; border-radius: 4px; overflow: hidden; position: relative;">
+                    <!-- 2015 niveau (68%) -->
+                    <div style="position: absolute; left: 68%; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.3); z-index: 2;"></div>
+                    <div style="position: absolute; left: 68%; top: -18px; transform: translateX(-50%); font-size: 0.75rem; color: #666; white-space: nowrap;">2015</div>
+                    <!-- 2024 niveau (74%) -->
+                    <div style="width: 74%; height: 100%; background: linear-gradient(90deg, #2d5a27, #4a9c3f); position: relative;">
+                        <!-- Groei-gedeelte highlight -->
+                        <div style="position: absolute; left: calc(68% / 74% * 100%); right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.2);"></div>
+                        <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: white; font-weight: bold; font-size: 0.9rem;">5,9 mld</span>
+                    </div>
+                    <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: #666;">
+                        2,1 mld zonder
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 0.5rem;">
+                    <span style="color: var(--nature-green); font-weight: bold;">+6 procentpunt = +961 miljoen mensen</span>
+                </div>
+            </div>
+
+            <!-- Sanitatie -->
+            <div style="margin-bottom: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <h4 style="margin: 0;">Veilige Sanitatie</h4>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.9rem; color: #888;">2015: 48%</span>
+                        <span style="margin: 0 0.5rem;">→</span>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ocean-blue);">58%</span>
+                    </div>
+                </div>
+                <div style="height: 50px; background: #eee; border-radius: 4px; overflow: hidden; position: relative;">
+                    <!-- 2015 niveau (48%) -->
+                    <div style="position: absolute; left: 48%; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.3); z-index: 2;"></div>
+                    <div style="position: absolute; left: 48%; top: -18px; transform: translateX(-50%); font-size: 0.75rem; color: #666; white-space: nowrap;">2015</div>
+                    <!-- 2024 niveau (58%) -->
+                    <div style="width: 58%; height: 100%; background: linear-gradient(90deg, #1e4d6b, #3a7ca5); position: relative;">
+                        <!-- Groei-gedeelte highlight -->
+                        <div style="position: absolute; left: calc(48% / 58% * 100%); right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.2);"></div>
+                        <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: white; font-weight: bold; font-size: 0.9rem;">4,6 mld</span>
+                    </div>
+                    <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: #666;">
+                        3,4 mld zonder
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 0.5rem;">
+                    <span style="color: var(--nature-green); font-weight: bold;">+10 procentpunt = +1,2 miljard mensen</span>
+                </div>
+            </div>
+
+            <!-- Hygiëne -->
+            <div style="margin-bottom: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <h4 style="margin: 0;">Basishygiëne (handenwassen)</h4>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.9rem; color: #888;">2015: 66%</span>
+                        <span style="margin: 0 0.5rem;">→</span>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--sun-gold);">80%</span>
+                    </div>
+                </div>
+                <div style="height: 50px; background: #eee; border-radius: 4px; overflow: hidden; position: relative;">
+                    <!-- 2015 niveau (66%) -->
+                    <div style="position: absolute; left: 66%; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.3); z-index: 2;"></div>
+                    <div style="position: absolute; left: 66%; top: -18px; transform: translateX(-50%); font-size: 0.75rem; color: #666; white-space: nowrap;">2015</div>
+                    <!-- 2024 niveau (80%) -->
+                    <div style="width: 80%; height: 100%; background: linear-gradient(90deg, #b8860b, #d4a017); position: relative;">
+                        <!-- Groei-gedeelte highlight -->
+                        <div style="position: absolute; left: calc(66% / 80% * 100%); right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.2);"></div>
+                        <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: white; font-weight: bold; font-size: 0.9rem;">6,4 mld</span>
+                    </div>
+                    <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: #666;">
+                        1,7 mld zonder
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 0.5rem;">
+                    <span style="color: var(--nature-green); font-weight: bold;">+14 procentpunt = +1,6 miljard mensen</span>
+                </div>
+            </div>
+
+            <!-- Open defecatie (speciale vermelding) -->
+            <div style="background: rgba(45, 90, 39, 0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--nature-green);">Bijzondere Vooruitgang: Open Defecatie</h4>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+                    <div>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-red); text-decoration: line-through;">784M</span>
+                        <span style="font-size: 1.5rem; margin: 0 0.5rem;">→</span>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--nature-green);">354M</span>
+                    </div>
+                    <p style="margin: 0; flex: 1; min-width: 200px;">
+                        Het aantal mensen dat buiten moet poepen is <strong>meer dan gehalveerd</strong> in 9 jaar (van 10% naar 4% van de wereldbevolking).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Trend grafiek -->
+            <div style="margin-top: 2rem;">
+                <h4 style="margin-bottom: 1rem;">Trend Over Tijd</h4>
+                <div style="height: 250px;">
+                    <canvas id="accessTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div style="background: #f5f5f0; padding: 1.5rem; margin-top: 1.5rem; border-left: 4px solid var(--ocean-blue);">
+                <p style="margin: 0;">
+                    <strong>Wat nog moet gebeuren:</strong> 2,1 miljard mensen hebben nog geen veilig drinkwater.
+                    3,4 miljard mensen hebben geen veilige sanitatie. Het werk is niet af — maar de richting is goed.
+                </p>
+            </div>
+
+            <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
+                Bron: <a href="https://data.unicef.org/resources/jmp-report-2025/" target="_blank" style="color: var(--ocean-blue);">WHO/UNICEF JMP Report 2025</a> — Progress on household drinking water, sanitation and hygiene 2000-2024
+            </div>
+        </div>
+
+        <div class="world-impact reveal">
+            <h2>Wat Je Niet Hoort in het Nieuws</h2>
+
+            <!-- Context: nieuws vs realiteit -->
+            <div style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin-bottom: 2rem; text-align: left;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+
+                    <!-- Kolom 1: Wat je wel hoort -->
+                    <div>
+                        <h4 style="font-family: 'Playfair Display', serif; color: var(--accent-red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">📺</span> Wat je wél hoort
+                        </h4>
+                        <div style="background: #fdf2f2; border-left: 4px solid var(--accent-red); padding: 1rem; margin-bottom: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">"Massa-deportaties naar Centraal-Amerika"</div>
+                            <div style="font-size: 0.9rem; color: #555;">Individuele verhalen over vluchtelingen en uitzettingen domineren het nieuws</div>
+                        </div>
+                        <div style="background: #fdf2f2; border-left: 4px solid var(--accent-red); padding: 1rem; margin-bottom: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">"Gewelddadige benden in El Salvador"</div>
+                            <div style="font-size: 0.9rem; color: #555;">Focus op misdaad, gangs, en onveiligheid</div>
+                        </div>
+                        <div style="background: #fdf2f2; border-left: 4px solid var(--accent-red); padding: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">"Recordaantal moorden in [stad X]"</div>
+                            <div style="font-size: 0.9rem; color: #555;">Lokale incidenten worden nationale koppen</div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom 2: Wat je niet hoort -->
+                    <div>
+                        <h4 style="font-family: 'Playfair Display', serif; color: var(--nature-green); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">📊</span> Wat je níet hoort
+                        </h4>
+                        <div style="background: #f0f7ef; border-left: 4px solid var(--nature-green); padding: 1rem; margin-bottom: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">Centraal-Amerika: -58% moordcijfers</div>
+                            <div style="font-size: 0.9rem; color: #555;">De sterkste daling in veiligheid ter wereld — miljoenen mensen veiliger</div>
+                        </div>
+                        <div style="background: #f0f7ef; border-left: 4px solid var(--nature-green); padding: 1rem; margin-bottom: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">Zuid-Amerika: -22.6% moordcijfers</div>
+                            <div style="font-size: 0.9rem; color: #555;">Hele continent wordt structureel veiliger</div>
+                        </div>
+                        <div style="background: #f0f7ef; border-left: 4px solid var(--nature-green); padding: 1rem;">
+                            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #333;">VS: laagste moordcijfer sinds 1960</div>
+                            <div style="font-size: 0.9rem; color: #555;">Ondanks alle koppen over criminaliteit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #f5f5f0; padding: 1.5rem; margin-top: 2rem; border-radius: 8px;">
+                    <p style="margin: 0; font-style: italic; color: #555;">
+                        <strong>Waarom dit ertoe doet:</strong> Het nieuws selecteert op dramatische individuele gebeurtenissen.
+                        Maar de grote trends — die miljoenen levens beïnvloeden — krijgen zelden aandacht.
+                        Eén deportatieverhaal haalt de voorpagina. Dat 58% minder mensen worden vermoord in Centraal-Amerika niet.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Andere impact statistieken -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div style="background: white; border: 1px solid var(--soft-gray); padding: 1.5rem; text-align: center;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--nature-green);">30.8% → 19.8%</div>
+                    <div style="font-weight: bold; margin: 0.5rem 0;">Indonesië</div>
+                    <div style="font-size: 0.9rem; color: #666;">Ondervoeding bij kinderen gedaald met meer dan een derde</div>
+                </div>
+                <div style="background: white; border: 1px solid var(--soft-gray); padding: 1.5rem; text-align: center;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--sun-gold);">500M+</div>
+                    <div style="font-weight: bold; margin: 0.5rem 0;">Schoolmaaltijden</div>
+                    <div style="font-size: 0.9rem; color: #666;">Kinderen wereldwijd krijgen nu dagelijks te eten op school</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="reveal">Veiligheid: De Wereld Wordt Veiliger</h3>
+
+            <!-- Lisa context -->
+            <div class="reveal" style="background: #fdf2f2; border: 1px solid #e8c4c4; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px;">
+                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem; color: #333;">Eerst dit: Lisa</h4>
+                <p style="color: #555; margin-bottom: 1rem;">
+                    In augustus 2025 werd Lisa (17) uit Abcoude vermoord terwijl ze 's nachts naar huis fietste vanuit Amsterdam.
+                    Deze verschrikkelijke gebeurtenis leidde tot landelijke verontwaardiging en een gevoel van onveiligheid — terecht.
+                </p>
+                <p style="color: #555; margin-bottom: 1rem;">
+                    Zulke gevoelens zijn serieus en belangrijk. Ze leiden tot actie: Amsterdam trok 6 miljoen euro uit voor extra maatregelen
+                    en 30 extra agenten. Dat is hoe het hoort.
+                </p>
+                <p style="color: #555; margin-bottom: 0;">
+                    Tegelijk is het belangrijk te weten: onderzoek van hoogleraar Marieke Liem (Universiteit Leiden) over 2015-2024
+                    toonde <strong>geen enkel ander geval</strong> in Nederland waarin een minderjarig meisje werd gedood door een onbekende dader.
+                    Lisa's dood was niet alleen tragisch — het was ook uitzonderlijk zeldzaam.
+                </p>
+                <div style="font-size: 0.8rem; color: #888; margin-top: 1rem;">
+                    Bronnen: <a href="https://nos.nl/artikel/2579411-politie-maakt-meer-bekend-over-gewelddadige-dood-lisa-17-uit-abcoude" target="_blank" style="color: var(--ocean-blue);">NOS</a> |
+                    <a href="https://www.universiteitleiden.nl/medewerkers/marieke-liem" target="_blank" style="color: var(--ocean-blue);">Prof. Marieke Liem, Universiteit Leiden</a> (Dutch Homicide Monitor)
+                </div>
+            </div>
+
+            <p class="reveal" style="margin-bottom: 2rem;">
+                Eén tragische gebeurtenis kan ons gevoel van veiligheid volledig veranderen. Maar wat zegt de data over de grote lijn?
+                Moordcijfers dalen op elk continent.
+            </p>
+
+            <!-- Verbeterde visualisatie: "Van elke 100 moorden..." -->
+            <div class="reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin-bottom: 2rem;">
+                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 0.5rem;">Van elke 100 moorden die vroeger plaatsvonden...</h4>
+                <p style="color: #888; font-size: 0.9rem; margin-bottom: 2rem;">...hoeveel gebeuren er nu nog?</p>
+
+                <!-- Centraal-Amerika: -58% = nog 42 van de 100 -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0; font-weight: 600;">Centraal-Amerika</h4>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">42 van de 100</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem;">
+                        <div style="height: 24px; flex: 42; background: var(--nature-green); border-radius: 4px;"></div>
+                        <div style="height: 24px; flex: 58; background: #ddd; border-radius: 4px; position: relative;">
+                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">58 voorkomen</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
+                        El Salvador, Honduras, Guatemala — de meest gewelddadige regio ter wereld is nu veel veiliger
+                    </div>
+                </div>
+
+                <!-- Jamaica: -42% = nog 58 van de 100 -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0; font-weight: 600;">Jamaica</h4>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">58 van de 100</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="height: 24px; flex: 58; background: var(--nature-green); border-radius: 4px;"></div>
+                        <div style="height: 24px; flex: 42; background: #ddd; border-radius: 4px; position: relative;">
+                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">42 voorkomen</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
+                        Grootste verbetering in de Cariben
+                    </div>
+                </div>
+
+                <!-- Zuid-Amerika: -22.6% = nog 77 van de 100 -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0; font-weight: 600;">Zuid-Amerika</h4>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">77 van de 100</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="height: 24px; flex: 77; background: var(--nature-green); border-radius: 4px;"></div>
+                        <div style="height: 24px; flex: 23; background: #ddd; border-radius: 4px; position: relative;">
+                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">23 voorkomen</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
+                        Brazilië, Colombia, Venezuela — heel het continent wordt veiliger
+                    </div>
+                </div>
+
+                <!-- VS: -20% = nog 80 van de 100 -->
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0; font-weight: 600;">Verenigde Staten</h4>
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">80 van de 100</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="height: 24px; flex: 80; background: var(--nature-green); border-radius: 4px;"></div>
+                        <div style="height: 24px; flex: 20; background: #ddd; border-radius: 4px; position: relative;">
+                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">20 voorkomen</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
+                        Laagste moordcijfer sinds 1960 — ondanks wat het nieuws doet geloven
+                    </div>
+                </div>
+
+                <div style="background: #f0f7ef; padding: 1rem; margin-top: 1.5rem; border-radius: 4px; border-left: 4px solid var(--nature-green);">
+                    <p style="margin: 0; font-size: 0.9rem; color: #555;">
+                        <strong>Zo lees je dit:</strong> De groene balk toont hoeveel moorden er nu nog plaatsvinden vergeleken met vroeger.
+                        De grijze balk toont hoeveel moorden zijn <em>voorkomen</em>. In Centraal-Amerika zijn dat 58 van elke 100 — duizenden levens per jaar.
+                    </p>
+                </div>
+
+                <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
+                    Bronnen: <a href="https://dataunodc.un.org/dp-intentional-homicide-victims" target="_blank" style="color: var(--ocean-blue);">UN Office on Drugs and Crime</a>,
+                    <a href="https://www.npr.org/2025/12/24/nx-s1-5611466/2025-crime-trends-2026-predictions" target="_blank" style="color: var(--ocean-blue);">NPR Crime Data 2025</a>
+                </div>
+            </div>
+
+            <!-- Veiligheidsgevoel in context -->
+            <div class="safety-context reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem;">Hoe Veilig Voelen Mensen Zich?</h4>
+
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+                    <div style="flex: 1; min-width: 200px; text-align: center;">
+                        <div class="big-number" style="font-size: 4rem;">73%</div>
+                        <div class="big-number-label">Voelt zich veilig 's nachts</div>
+                        <div style="font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Wereldwijd (Gallup 2024)</div>
+                    </div>
+                    <div style="flex: 2; min-width: 250px;">
+                        <p style="color: #555; margin-bottom: 1rem;">
+                            Dit is een <strong>record</strong> in Gallup's metingen. Nooit eerder voelden zoveel mensen zich veilig om 's nachts alleen door hun buurt te lopen.
+                        </p>
+                        <div style="background: #f5f5f0; padding: 1rem; border-left: 4px solid var(--nature-green);">
+                            <strong>Trend:</strong> In 2006 lag dit percentage op 68%. De stijging van 5 procentpunt lijkt klein, maar vertegenwoordigt honderden miljoenen mensen die zich nu veiliger voelen.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="font-size: 0.85rem; color: #888;">
+                    Bron: <a href="https://news.gallup.com/poll/692816/people-globally-living-better-lives.aspx" target="_blank" style="color: var(--ocean-blue);">Gallup World Poll 2024</a>
+                </div>
+            </div>
+
+            <h3 class="reveal">Welzijn: Hoe Gaat Het Met De Mensheid?</h3>
+
+            <p class="reveal" style="margin-bottom: 1.5rem;">
+                Gallup vraagt jaarlijks aan mensen in 142 landen: hoe zou je je leven beoordelen op een schaal van 0 tot 10?
+                Mensen die 7+ scoren voor nu én 8+ voor over vijf jaar worden geclassificeerd als mensen die het "goed hebben" (thriving).
+                Mensen die 4 of lager scoren voor beide worden geclassificeerd als "lijdend".
+            </p>
+
+            <div class="chart-container reveal">
+                <h3 class="chart-title">Welzijn Over Tijd</h3>
+                <p class="chart-subtitle">Percentage mensen dat het "goed heeft" vs. "lijdt" — wereldwijd</p>
+                <div class="chart-wrapper">
+                    <canvas id="wellbeingChart"></canvas>
+                </div>
+            </div>
+
+            <div class="wellbeing-summary reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                    <div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--nature-green);">33%</div>
+                        <div style="font-weight: bold;">Het goed hebben</div>
+                        <div style="font-size: 0.9rem; color: #888;">Record hoog (2024)</div>
+                    </div>
+                    <div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--accent-red);">7%</div>
+                        <div style="font-weight: bold;">Lijden</div>
+                        <div style="font-size: 0.9rem; color: #888;">Record laag (2024)</div>
+                    </div>
+                    <div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--sun-gold);">60%</div>
+                        <div style="font-weight: bold;">Worstelen</div>
+                        <div style="font-size: 0.9rem; color: #888;">Niet goed, niet slecht</div>
+                    </div>
+                </div>
+
+                <div style="background: #f5f5f0; padding: 1.5rem; margin-top: 2rem; border-left: 4px solid var(--nature-green);">
+                    <p style="margin: 0;">
+                        <strong>De trend is duidelijk:</strong> In 2014 leed nog 12% van de wereldbevolking. Nu is dat 7% — bijna gehalveerd in 10 jaar.
+                        Dit zijn honderden miljoenen mensen wiens leven meetbaar is verbeterd.
+                    </p>
+                </div>
+
+                <!-- Nuance: negatieve emoties -->
+                <div style="background: #fdf8f2; padding: 1.5rem; margin-top: 1rem; border-left: 4px solid var(--sun-gold);">
+                    <p style="margin: 0 0 0.75rem 0; font-weight: bold; color: #8b6914;">Het volledige plaatje:</p>
+                    <p style="margin: 0; color: #555;">
+                        Dezelfde Gallup-data toont ook dat <strong>dagelijkse negatieve emoties</strong> historisch hoog zijn:
+                        39% maakt zich veel zorgen, 37% ervaart stress, 26% voelt verdriet.
+                        Dit klinkt tegenstrijdig, maar is het niet: mensen kunnen hun leven als "goed" beoordelen
+                        én tegelijk dagelijks stress ervaren. Welzijn is complex — en beide trends zijn waar.
+                    </p>
+                </div>
+
+                <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
+                    Bronnen: <a href="https://news.gallup.com/poll/692816/people-globally-living-better-lives.aspx" target="_blank" style="color: var(--ocean-blue);">Gallup Life Evaluation</a> |
+                    <a href="https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx" target="_blank" style="color: var(--ocean-blue);">Gallup Global Emotional Health Report</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GEZONDHEID -->
+    <section class="section" id="gezondheid">
+        <p class="section-eyebrow reveal">Hoofdstuk V</p>
+        <h2 class="reveal">De Stille Overwinningen</h2>
+
+        <p class="lead-paragraph reveal">
+            In 2024 werden meer ziektes geëlimineerd dan ooit tevoren. 17 landen bereikten eliminatiestatus voor minstens één ziekte — een wereldrecord.
+        </p>
+
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">Trachoma</span>
+                    <p>Egypte, Fiji, Papua-Nieuw-Guinea, Senegal en zes andere landen elimineerden deze blindmakende ziekte. Het aantal mensen in risicogebieden daalde van 192 miljoen naar 96 miljoen in tien jaar.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">Malaria Vaccin</span>
+                    <p>10 miljoen kinderen werden gevaccineerd tegen malaria — een historische mijlpaal.</p>
+                </div>
+                <div class="timeline-dot" style="background: var(--ocean-blue);"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">Malediven</span>
+                    <p>Eerste land ooit met een drievoudige eliminatie: HIV, hepatitis B, en syfilis bij geboorte.</p>
+                </div>
+                <div class="timeline-dot" style="background: var(--sun-gold);"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">Mazelen</span>
+                    <p>Japan en 21 Pacifische naties werden mazelenvrij verklaard.</p>
+                </div>
+                <div class="timeline-dot" style="background: var(--accent-red);"></div>
+            </div>
+        </div>
+
+        <div class="chart-container reveal">
+            <h3 class="chart-title">Daling in Ziektelast — Wereldwijd</h3>
+            <p class="chart-subtitle">Percentage daling sinds 2010 volgens The Lancet Global Burden of Disease Study</p>
+            <div class="chart-wrapper">
+                <canvas id="diseaseChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Context voor gezondheidsdata -->
+        <div class="health-context reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
+            <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem;">Wat Betekent "Ziektelast"?</h4>
+            <p style="margin-bottom: 1.5rem; color: #555;">
+                De "Global Burden of Disease" meet niet alleen sterfgevallen, maar ook jaren verloren door ziekte en invaliditeit.
+                Dit zijn <strong>wereldwijde</strong> cijfers — ze vertegenwoordigen alle 8 miljard mensen.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="text-align: center; padding: 1.5rem; background: #f5f5f0;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent-red);">-12,6%</div>
+                    <div style="font-weight: bold;">Totale ziektelast</div>
+                    <div style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">Alle ziektes en aandoeningen samen</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: #f5f5f0;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--nature-green);">-49%</div>
+                    <div style="font-weight: bold;">Tuberculose</div>
+                    <div style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">Bijna gehalveerd in 14 jaar</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: #f5f5f0;">
+                    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--ocean-blue);">-35%</div>
+                    <div style="font-weight: bold;">Luchtweginfecties</div>
+                    <div style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">Longontsteking, bronchitis, etc.</div>
+                </div>
+            </div>
+
+            <div style="background: #f5f5f0; padding: 1.5rem; border-left: 4px solid var(--nature-green);">
+                <p style="margin: 0;">
+                    <strong>In perspectief:</strong> De daling van 12,6% in totale ziektelast sinds 2010 betekent dat de mensheid als geheel gezonder is dan ooit tevoren in de geschiedenis — ondanks dat we met 8 miljard mensen zijn.
+                </p>
+            </div>
+
+            <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
+                Bron: <a href="https://www.thelancet.com/gbd" target="_blank" style="color: var(--ocean-blue);">The Lancet Global Burden of Disease Study</a>
+            </div>
+        </div>
+
+        <div class="big-number-grid reveal">
+            <div class="big-number-card">
+                <div class="big-number red">17</div>
+                <div class="big-number-label">Landen</div>
+                <div class="big-number-detail">Bereikten eliminatiestatus voor minstens één ziekte — record</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number">10M</div>
+                <div class="big-number-label">Kinderen</div>
+                <div class="big-number-detail">Gevaccineerd tegen malaria in 2024</div>
+            </div>
+            <div class="big-number-card">
+                <div class="big-number blue">96M → 48M</div>
+                <div class="big-number-label">Trachoom risico</div>
+                <div class="big-number-detail">Mensen in risicogebieden gehalveerd</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONCLUSION / CTA -->
+    <section class="cta-section">
+        <h2>Optimisme Is Geen Stemming</h2>
+        <p class="lead-paragraph" style="max-width: 700px; margin: 0 auto 2rem; border: none; padding: 0; text-align: center;">
+            Het is een methode. Het betekent niet ontkennen dat er problemen zijn. Het betekent erkennen dat we ze kunnen oplossen — en dat we dat al doen.
+        </p>
+
+        <div class="decorative-line"></div>
+
+        <p style="max-width: 600px; margin: 2rem auto; color: #666;">
+            Elk datapunt in dit verhaal vertegenwoordigt echte mensen wiens levens zijn verbeterd.
+            Water dat nu schoon is. Elektriciteit die nu brandt. Ziektes die zijn verslagen.
+            Dieren die terugkeren. Bossen die groeien.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="https://fixthenews.com" class="cta-button primary" target="_blank">Lees Het Originele Artikel</a>
+            <a href="#hero" class="cta-button secondary">Terug Naar Begin</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Gebaseerd op het artikel "The Telemetry" door <a href="https://fixthenews.com" target="_blank">Angus Hervey / Fix The News</a></p>
+        <p style="margin-top: 1rem;">Gemaakt voor nieuwsgierige geesten die verder kijken dan de headlines.</p>
+    </footer>
+
+    <script>
+        // ====================================
+        // CHARTS
+        // ====================================
+
+        // Energy Transition Chart - Met correct kantelpunt
+        const energyCtx = document.getElementById('energyChart').getContext('2d');
+
+        // Plugin voor kantelpunt annotatie
+        const crossoverPlugin = {
+            id: 'crossoverAnnotation',
+            afterDraw: (chart) => {
+                const ctx = chart.ctx;
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+
+                // Vind het crossover punt (tussen 2024 en H1 2025)
+                const crossoverX = xAxis.getPixelForValue(10); // Index 10 = H1 2025
+
+                // Teken verticale lijn
+                ctx.save();
+                ctx.beginPath();
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = '#c41e3a';
+                ctx.lineWidth = 2;
+                ctx.moveTo(crossoverX, yAxis.top);
+                ctx.lineTo(crossoverX, yAxis.bottom);
+                ctx.stroke();
+
+                // Label
+                ctx.fillStyle = '#c41e3a';
+                ctx.font = 'bold 12px Source Sans Pro';
+                ctx.textAlign = 'center';
+                ctx.fillText('KANTELPUNT', crossoverX, yAxis.top - 10);
+                ctx.restore();
+            }
+        };
+
+        new Chart(energyCtx, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', 'H1 2025'],
+                datasets: [{
+                    label: 'Hernieuwbaar (%)',
+                    data: [23, 24, 25, 26, 27, 29, 29, 30, 31, 32, 34.3],
+                    borderColor: '#2d5a27',
+                    backgroundColor: 'rgba(45, 90, 39, 0.15)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#2d5a27',
+                    pointHoverRadius: 8
+                }, {
+                    label: 'Steenkool (%)',
+                    data: [39, 38, 38, 38, 37, 35, 36, 36, 35, 34.4, 33.1],
+                    borderColor: '#666',
+                    backgroundColor: 'rgba(102, 102, 102, 0.15)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#666',
+                    pointHoverRadius: 8
+                }]
+            },
+            plugins: [crossoverPlugin],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: 'Source Sans Pro', size: 14 },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                        titleFont: { family: 'Playfair Display', size: 14 },
+                        bodyFont: { family: 'Source Sans Pro', size: 13 },
+                        padding: 12,
+                        callbacks: {
+                            afterBody: function(context) {
+                                if (context[0].dataIndex === 10) {
+                                    return '\n⭐ Historisch kantelpunt!';
+                                }
+                                return '';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 20,
+                        max: 45,
+                        title: {
+                            display: true,
+                            text: '% van wereldwijde elektriciteitsproductie',
+                            font: { family: 'Source Sans Pro', size: 12 }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Warming Projections Chart - Tijdlijn
+        const warmingCtx = document.getElementById('warmingChart').getContext('2d');
+        new Chart(warmingCtx, {
+            type: 'line',
+            data: {
+                labels: ['2010', '2012', '2014', '2016', '2018', '2020', '2022', '2024'],
+                datasets: [{
+                    label: 'Verwachte opwarming (°C)',
+                    data: [4.5, 4.2, 3.9, 3.5, 3.2, 3.0, 2.8, 2.7],
+                    borderColor: function(context) {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+                        if (!chartArea) return '#c41e3a';
+                        const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                        gradient.addColorStop(0, '#c41e3a');
+                        gradient.addColorStop(0.5, '#d4a017');
+                        gradient.addColorStop(1, '#2d5a27');
+                        return gradient;
+                    },
+                    backgroundColor: 'rgba(212, 160, 23, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 4,
+                    pointRadius: 6,
+                    pointBackgroundColor: ['#c41e3a', '#c41e3a', '#ff8c00', '#ff8c00', '#d4a017', '#d4a017', '#d4a017', '#d4a017'],
+                    pointHoverRadius: 10
+                }, {
+                    label: 'Parijs-doel',
+                    data: [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5],
+                    borderColor: '#2d5a27',
+                    borderDash: [10, 5],
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: 'Source Sans Pro', size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                        callbacks: {
+                            label: function(context) {
+                                if (context.datasetIndex === 0) {
+                                    const temp = context.parsed.y;
+                                    let status = '';
+                                    if (temp > 4) status = ' (Catastrofaal)';
+                                    else if (temp > 3) status = ' (Ernstig)';
+                                    else if (temp > 2) status = ' (Uitdagend)';
+                                    return `Projectie: ${temp}°C${status}`;
+                                }
+                                return `Parijs-doel: ${context.parsed.y}°C`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 5,
+                        title: {
+                            display: true,
+                            text: 'Verwachte opwarming (°C boven pre-industrieel)',
+                            font: { family: 'Source Sans Pro' }
+                        },
+                        grid: {
+                            color: function(context) {
+                                if (context.tick.value === 1.5) return '#2d5a27';
+                                if (context.tick.value === 2) return '#d4a017';
+                                return 'rgba(0,0,0,0.05)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Climate Slider Interactivity
+        const climateData = {
+            2010: { temp: '4.5°C', color: '#c41e3a', desc: 'Zonder actie voorspelden modellen een catastrofale opwarming van meer dan 4°C.' },
+            2011: { temp: '4.3°C', color: '#c41e3a', desc: 'De projecties begonnen langzaam te dalen door eerste klimaatbeleid.' },
+            2012: { temp: '4.2°C', color: '#c41e3a', desc: 'Hernieuwbare energie begon goedkoper te worden, maar steenkool domineerde nog.' },
+            2013: { temp: '4.0°C', color: '#c41e3a', desc: 'De eerste tekenen van hoop: zonne-energie prijzen daalden dramatisch.' },
+            2014: { temp: '3.9°C', color: '#ff8c00', desc: 'China kondigde grote investeringen in schone energie aan.' },
+            2015: { temp: '3.5°C', color: '#ff8c00', desc: 'Het Parijs Akkoord werd getekend. 196 landen beloofden actie.' },
+            2016: { temp: '3.4°C', color: '#ff8c00', desc: 'Wind en zonne-energie werden de goedkoopste nieuwe energiebronnen.' },
+            2017: { temp: '3.3°C', color: '#ff8c00', desc: 'Elektrische auto\'s begonnen mainstream te worden.' },
+            2018: { temp: '3.2°C', color: '#ff8c00', desc: 'De groei van hernieuwbare energie versnelde wereldwijd.' },
+            2019: { temp: '3.1°C', color: '#ff8c00', desc: 'Europa kondigde de Green Deal aan.' },
+            2020: { temp: '3.0°C', color: '#d4a017', desc: 'Ondanks COVID bleven investeringen in schone energie groeien.' },
+            2021: { temp: '2.9°C', color: '#d4a017', desc: 'China beloofde klimaatneutraliteit voor 2060.' },
+            2022: { temp: '2.8°C', color: '#d4a017', desc: 'De VS keerde terug met grote klimaatwetgeving.' },
+            2023: { temp: '2.8°C', color: '#d4a017', desc: 'Record installaties van zonne- en windenergie wereldwijd.' },
+            2024: { temp: '2.7°C', color: '#d4a017', desc: 'Hernieuwbaar passeerde steenkool. De transitie is onomkeerbaar.' }
+        };
+
+        const slider = document.getElementById('climateSlider');
+        const tempDisplay = document.getElementById('tempDisplay');
+        const yearDisplay = document.getElementById('yearDisplay');
+        const climateDescription = document.getElementById('climateDescription');
+
+        if (slider) {
+            slider.addEventListener('input', function() {
+                const year = this.value;
+                const data = climateData[year];
+
+                tempDisplay.textContent = data.temp;
+                tempDisplay.style.color = data.color;
+                yearDisplay.textContent = `Projectie ${year}`;
+                climateDescription.textContent = data.desc;
+            });
+        }
+
+        // Forest Loss Chart - Tijdlijn
+        const forestCtx = document.getElementById('forestChart').getContext('2d');
+        new Chart(forestCtx, {
+            type: 'line',
+            data: {
+                labels: ['1990-2000', '2000-2010', '2010-2015', '2015-2020', '2020-2025'],
+                datasets: [{
+                    label: 'Netto bosverlies (miljoen ha/jaar)',
+                    data: [10.7, 7.8, 5.9, 4.7, 4.12],
+                    borderColor: '#2d5a27',
+                    backgroundColor: 'rgba(45, 90, 39, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 3,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#2d5a27'
+                }, {
+                    label: 'Bruto ontbossing (miljoen ha/jaar)',
+                    data: [17.6, 13.6, 12.2, 11.5, 10.9],
+                    borderColor: '#c41e3a',
+                    borderDash: [5, 5],
+                    backgroundColor: 'transparent',
+                    fill: false,
+                    tension: 0.3,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#c41e3a'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: 'Source Sans Pro', size: 13 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.9)'
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: 'Miljoen hectare per jaar',
+                            font: { family: 'Source Sans Pro' }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Access Trend Chart (Basic Needs over time)
+        const accessTrendCtx = document.getElementById('accessTrendChart');
+        if (accessTrendCtx) {
+            new Chart(accessTrendCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['2000', '2005', '2010', '2015', '2020', '2024'],
+                    datasets: [{
+                        label: 'Veilig Drinkwater (%)',
+                        data: [61, 64, 66, 68, 71, 74],
+                        borderColor: '#2d5a27',
+                        backgroundColor: 'rgba(45, 90, 39, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3
+                    }, {
+                        label: 'Basishygiëne (%)',
+                        data: [50, 55, 60, 66, 74, 80],
+                        borderColor: '#d4a017',
+                        backgroundColor: 'rgba(212, 160, 23, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3
+                    }, {
+                        label: 'Veilige Sanitatie (%)',
+                        data: [28, 34, 40, 48, 54, 58],
+                        borderColor: '#1e4d6b',
+                        backgroundColor: 'rgba(30, 77, 107, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Source Sans Pro', size: 12 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 20,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '% van wereldbevolking',
+                                font: { family: 'Source Sans Pro' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Wellbeing Chart - Tijdlijn
+        const wellbeingCtx = document.getElementById('wellbeingChart').getContext('2d');
+        new Chart(wellbeingCtx, {
+            type: 'line',
+            data: {
+                labels: ['2007', '2010', '2012', '2014', '2016', '2018', '2020', '2022', '2024'],
+                datasets: [{
+                    label: 'Het goed hebben (%)',
+                    data: [24, 26, 27, 27, 28, 29, 30, 31, 33],
+                    borderColor: '#2d5a27',
+                    backgroundColor: 'rgba(45, 90, 39, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#2d5a27'
+                }, {
+                    label: 'Lijden (%)',
+                    data: [13, 13, 12, 12, 11, 10, 9, 8, 7],
+                    borderColor: '#c41e3a',
+                    backgroundColor: 'rgba(196, 30, 58, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#c41e3a'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: 'Source Sans Pro', size: 14 },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                        callbacks: {
+                            afterBody: function(context) {
+                                if (context[0].dataIndex === 8) {
+                                    return '\nRecord jaar!';
+                                }
+                                return '';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 40,
+                        title: {
+                            display: true,
+                            text: '% van wereldbevolking',
+                            font: { family: 'Source Sans Pro' }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Disease Burden Chart
+        const diseaseCtx = document.getElementById('diseaseChart').getContext('2d');
+        new Chart(diseaseCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Totale Ziektelast', 'Tuberculose', 'Luchtweginfecties', 'Diarree'],
+                datasets: [{
+                    label: 'Daling sinds 2010 (%)',
+                    data: [12.6, 49, 35, 25],
+                    backgroundColor: ['#c41e3a', '#1e4d6b', '#2d5a27', '#d4a017'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Percentage daling'
+                        }
+                    }
+                }
+            }
+        });
+
+        // ====================================
+        // INTERACTIONS
+        // ====================================
+
+        // Tab switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+
+                // Update buttons
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+
+                // Animate progress bars in new tab
+                setTimeout(() => {
+                    document.querySelectorAll('#' + tabId + ' .progress-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.width + '%';
+                    });
+                }, 100);
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Progress bar animation on scroll
+        const progressBars = document.querySelectorAll('.progress-fill');
+
+        const animateProgressBars = () => {
+            progressBars.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if (rect.top < window.innerHeight && !bar.style.width) {
+                    bar.style.width = bar.dataset.width + '%';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateProgressBars);
+
+        // Chapter navigation
+        const chapterDots = document.querySelectorAll('.chapter-dot');
+        const sections = document.querySelectorAll('section[id]');
+
+        chapterDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionId = dot.dataset.section;
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Update active chapter on scroll
+        const updateActiveChapter = () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            chapterDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.section === current) {
+                    dot.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateActiveChapter);
+
+        // Nav link active state
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        const updateActiveNav = () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Impact item interaction
+        function showImpactDetail(element) {
+            // Add a visual feedback
+            element.style.background = 'rgba(212, 160, 23, 0.3)';
+            setTimeout(() => {
+                element.style.background = '';
+            }, 500);
+        }
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+
+        counters.forEach(counter => {
+            const target = parseInt(counter.dataset.target);
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+
+            // Start when in view
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    updateCounter();
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(counter);
+        });
+
+        // Initialize first tab's progress bars
+        document.querySelectorAll('#china .progress-fill').forEach(bar => {
+            setTimeout(() => {
+                bar.style.width = bar.dataset.width + '%';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
