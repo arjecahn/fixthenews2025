@@ -1363,33 +1363,17 @@
             </div>
         </div>
 
+        <div class="chart-container reveal">
+            <h3 class="chart-title">Netto Bosverlies per Periode</h3>
+            <p class="chart-subtitle">Hetzelfde verhaal, andere visualisatie: de balken worden steeds korter.</p>
+            <div class="chart-wrapper">
+                <canvas id="forestBarChart"></canvas>
+            </div>
+        </div>
+
         <!-- Visuele vergelijking ontbossing met Europa kaart -->
         <div class="forest-context reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
             <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem;">Wat betekent dit in de praktijk?</h4>
-
-            <!-- Europa kaart met Bulgarije en Nederland -->
-            <div style="background: #e8f4f8; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-                <svg viewBox="0 0 400 300" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                    <!-- Simpele Europa outline -->
-                    <path d="M50,150 Q80,100 120,90 Q150,85 180,95 Q200,80 230,85 Q260,75 290,90 Q320,85 350,100 Q360,130 355,160 Q340,180 320,190 Q290,200 260,195 Q230,210 200,200 Q170,220 140,210 Q110,200 80,190 Q60,175 50,150 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
-                    <!-- Nederland (klein, noordwest) -->
-                    <rect x="145" y="105" width="20" height="25" fill="#2d5a27" stroke="#1a3d18" stroke-width="1" rx="2"/>
-                    <text x="155" y="145" font-size="10" fill="#1a3d18" text-anchor="middle" font-weight="bold">NL</text>
-                    <!-- Bulgarije (groter, zuidoost) -->
-                    <rect x="270" y="150" width="45" height="35" fill="#c41e3a" stroke="#8b1528" stroke-width="1" rx="2"/>
-                    <text x="292" y="200" font-size="10" fill="#8b1528" text-anchor="middle" font-weight="bold">BG</text>
-                </svg>
-                <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 1rem; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div style="width: 20px; height: 20px; background: #c41e3a; border-radius: 3px;"></div>
-                        <span><strong>Bulgarije</strong>: 11,1 miljoen ha</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div style="width: 20px; height: 20px; background: #2d5a27; border-radius: 3px;"></div>
-                        <span><strong>Nederland</strong>: 4,2 miljoen ha</span>
-                    </div>
-                </div>
-            </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
                 <div style="text-align: center; padding: 1.5rem; background: rgba(196, 30, 58, 0.1); border-radius: 8px;">
@@ -1458,23 +1442,51 @@
             <!-- Kaart Frans-Polynesië - SVG visualisatie -->
             <div class="ocean-map reveal" style="background: white; border: 1px solid var(--soft-gray); overflow: hidden; margin: 2rem 0;">
                 <!-- SVG wereldkaart met Frans-Polynesië gemarkeerd -->
-                <div style="background: linear-gradient(180deg, #87CEEB 0%, #1e4d6b 100%); padding: 2rem;">
-                    <svg viewBox="0 0 500 250" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+                <div style="background: #1a5276; padding: 1.5rem;">
+                    <svg viewBox="0 0 1000 500" style="width: 100%; max-width: 900px; display: block; margin: 0 auto;">
                         <!-- Oceaan achtergrond -->
-                        <rect width="500" height="250" fill="#1e4d6b"/>
-                        <!-- Simpele continenten -->
-                        <ellipse cx="120" cy="100" rx="60" ry="50" fill="#8fbc8f" opacity="0.7"/> <!-- Noord-Amerika -->
-                        <ellipse cx="100" cy="170" rx="35" ry="45" fill="#8fbc8f" opacity="0.7"/> <!-- Zuid-Amerika -->
-                        <ellipse cx="250" cy="90" rx="40" ry="35" fill="#8fbc8f" opacity="0.7"/> <!-- Europa -->
-                        <ellipse cx="260" cy="150" rx="45" ry="40" fill="#8fbc8f" opacity="0.7"/> <!-- Afrika -->
-                        <ellipse cx="380" cy="110" rx="70" ry="50" fill="#8fbc8f" opacity="0.7"/> <!-- Azië -->
-                        <ellipse cx="420" cy="190" rx="35" ry="25" fill="#8fbc8f" opacity="0.7"/> <!-- Australië -->
-                        <!-- Frans-Polynesië locatie (Stille Oceaan) -->
-                        <circle cx="60" cy="180" r="30" fill="rgba(212, 160, 23, 0.4)" stroke="#d4a017" stroke-width="3"/>
-                        <circle cx="60" cy="180" r="5" fill="#d4a017"/>
-                        <text x="60" y="220" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Frans-Polynesië</text>
-                        <!-- Pijl en label -->
-                        <text x="250" y="30" font-size="12" fill="white" text-anchor="middle">'s Werelds Grootste Mariene Beschermingsgebied</text>
+                        <rect width="1000" height="500" fill="#1a5276"/>
+
+                        <!-- Wereldkaart continenten (vereenvoudigde maar herkenbare vormen) -->
+                        <!-- Noord-Amerika -->
+                        <path d="M150,80 L180,60 L220,55 L260,70 L280,90 L275,120 L260,150 L240,180 L200,200 L180,220 L160,200 L140,160 L120,130 L110,100 L130,85 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Groenland -->
+                        <path d="M310,40 L350,35 L370,50 L365,80 L340,90 L315,75 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Zuid-Amerika -->
+                        <path d="M220,250 L250,240 L280,260 L290,300 L285,350 L270,400 L250,430 L230,420 L210,380 L200,330 L195,290 L200,260 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Europa -->
+                        <path d="M440,70 L480,60 L520,70 L540,90 L530,120 L500,140 L470,150 L440,140 L420,110 L430,85 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Afrika -->
+                        <path d="M460,170 L510,160 L550,180 L570,220 L565,280 L550,340 L520,380 L480,370 L450,330 L440,280 L445,230 L450,190 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Azië -->
+                        <path d="M560,60 L620,50 L700,55 L780,70 L840,100 L860,150 L850,200 L800,220 L750,200 L700,180 L650,170 L600,150 L560,130 L540,100 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- India -->
+                        <path d="M680,200 L710,190 L730,220 L720,270 L695,290 L670,260 L665,220 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Zuidoost-Azië -->
+                        <path d="M760,220 L800,210 L830,240 L820,280 L780,290 L750,260 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Australië -->
+                        <path d="M800,320 L860,310 L900,330 L910,370 L890,410 L840,420 L790,400 L780,360 Z" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+                        <!-- Nieuw-Zeeland -->
+                        <ellipse cx="930" cy="400" rx="15" ry="25" fill="#5d8a66" stroke="#3d5a46" stroke-width="1"/>
+
+                        <!-- Frans-Polynesië beschermd gebied (5 miljoen km² in de Stille Oceaan) -->
+                        <!-- Positie: ongeveer -17°S, 210°E op deze kaart = x≈85, y≈300 -->
+                        <circle cx="85" cy="310" r="80" fill="rgba(212, 160, 23, 0.35)" stroke="#d4a017" stroke-width="3" stroke-dasharray="8,4">
+                            <animate attributeName="r" values="78;82;78" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="85" cy="310" r="50" fill="rgba(212, 160, 23, 0.25)"/>
+                        <circle cx="85" cy="310" r="6" fill="#d4a017"/>
+
+                        <!-- Label -->
+                        <text x="85" y="410" font-size="14" fill="white" text-anchor="middle" font-weight="bold" font-family="Source Sans Pro, sans-serif">Frans-Polynesië</text>
+                        <text x="85" y="428" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle" font-family="Source Sans Pro, sans-serif">5 miljoen km² beschermd</text>
+
+                        <!-- Titel -->
+                        <text x="500" y="30" font-size="16" fill="white" text-anchor="middle" font-family="Playfair Display, serif">'s Werelds Grootste Mariene Beschermingsgebied</text>
+
+                        <!-- Schaal indicator -->
+                        <line x1="800" y1="460" x2="900" y2="460" stroke="white" stroke-width="2"/>
+                        <text x="850" y="480" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="Source Sans Pro, sans-serif">~5.000 km</text>
                     </svg>
                 </div>
                 <div style="padding: 2rem;">
@@ -1896,146 +1908,6 @@
         </div>
 
         <div class="section">
-            <h3 class="reveal">Veiligheid: De Wereld Wordt Veiliger</h3>
-
-            <!-- Lisa context -->
-            <div class="reveal" style="background: #fdf2f2; border: 1px solid #e8c4c4; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px;">
-                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem; color: #333;">Eerst dit: Lisa</h4>
-                <p style="color: #555; margin-bottom: 1rem;">
-                    In augustus 2025 werd Lisa (17) uit Abcoude vermoord terwijl ze 's nachts naar huis fietste vanuit Amsterdam.
-                    Deze verschrikkelijke gebeurtenis leidde tot landelijke verontwaardiging en een gevoel van onveiligheid — terecht.
-                </p>
-                <p style="color: #555; margin-bottom: 1rem;">
-                    Zulke gevoelens zijn serieus en belangrijk. Ze leiden tot actie: Amsterdam trok 6 miljoen euro uit voor extra maatregelen
-                    en 30 extra agenten. Dat is hoe het hoort.
-                </p>
-                <p style="color: #555; margin-bottom: 0;">
-                    Tegelijk is het belangrijk te weten: onderzoek van hoogleraar Marieke Liem (Universiteit Leiden) over 2015-2024
-                    toonde <strong>geen enkel ander geval</strong> in Nederland waarin een minderjarig meisje werd gedood door een onbekende dader.
-                    Lisa's dood was niet alleen tragisch — het was ook uitzonderlijk zeldzaam.
-                </p>
-                <div style="font-size: 0.8rem; color: #888; margin-top: 1rem;">
-                    Bronnen: <a href="https://nos.nl/artikel/2579411-politie-maakt-meer-bekend-over-gewelddadige-dood-lisa-17-uit-abcoude" target="_blank" style="color: var(--ocean-blue);">NOS</a> |
-                    <a href="https://www.universiteitleiden.nl/medewerkers/marieke-liem" target="_blank" style="color: var(--ocean-blue);">Prof. Marieke Liem, Universiteit Leiden</a> (Dutch Homicide Monitor)
-                </div>
-            </div>
-
-            <p class="reveal" style="margin-bottom: 2rem;">
-                Eén tragische gebeurtenis kan ons gevoel van veiligheid volledig veranderen. Maar wat zegt de data over de grote lijn?
-                Moordcijfers dalen op elk continent.
-            </p>
-
-            <!-- Verbeterde visualisatie: "Van elke 100 moorden..." -->
-            <div class="reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin-bottom: 2rem;">
-                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 0.5rem;">Van elke 100 moorden die vroeger plaatsvonden...</h4>
-                <p style="color: #888; font-size: 0.9rem; margin-bottom: 2rem;">...hoeveel gebeuren er nu nog?</p>
-
-                <!-- Centraal-Amerika: -58% = nog 42 van de 100 -->
-                <div style="margin-bottom: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                        <h4 style="margin: 0; font-weight: 600;">Centraal-Amerika</h4>
-                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">42 van de 100</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem;">
-                        <div style="height: 24px; flex: 42; background: var(--nature-green); border-radius: 4px;"></div>
-                        <div style="height: 24px; flex: 58; background: #ddd; border-radius: 4px; position: relative;">
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">58 voorkomen</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
-                        El Salvador, Honduras, Guatemala — de meest gewelddadige regio ter wereld is nu veel veiliger
-                    </div>
-                </div>
-
-                <!-- Jamaica: -42% = nog 58 van de 100 -->
-                <div style="margin-bottom: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                        <h4 style="margin: 0; font-weight: 600;">Jamaica</h4>
-                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">58 van de 100</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="height: 24px; flex: 58; background: var(--nature-green); border-radius: 4px;"></div>
-                        <div style="height: 24px; flex: 42; background: #ddd; border-radius: 4px; position: relative;">
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">42 voorkomen</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
-                        Grootste verbetering in de Cariben
-                    </div>
-                </div>
-
-                <!-- Zuid-Amerika: -22.6% = nog 77 van de 100 -->
-                <div style="margin-bottom: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                        <h4 style="margin: 0; font-weight: 600;">Zuid-Amerika</h4>
-                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">77 van de 100</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="height: 24px; flex: 77; background: var(--nature-green); border-radius: 4px;"></div>
-                        <div style="height: 24px; flex: 23; background: #ddd; border-radius: 4px; position: relative;">
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">23 voorkomen</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
-                        Brazilië, Colombia, Venezuela — heel het continent wordt veiliger
-                    </div>
-                </div>
-
-                <!-- VS: -20% = nog 80 van de 100 -->
-                <div style="margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                        <h4 style="margin: 0; font-weight: 600;">Verenigde Staten</h4>
-                        <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--nature-green); font-weight: bold;">80 van de 100</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="height: 24px; flex: 80; background: var(--nature-green); border-radius: 4px;"></div>
-                        <div style="height: 24px; flex: 20; background: #ddd; border-radius: 4px; position: relative;">
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #888;">20 voorkomen</span>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #666;">
-                        Laagste moordcijfer sinds 1960 — ondanks wat het nieuws doet geloven
-                    </div>
-                </div>
-
-                <div style="background: #f0f7ef; padding: 1rem; margin-top: 1.5rem; border-radius: 4px; border-left: 4px solid var(--nature-green);">
-                    <p style="margin: 0; font-size: 0.9rem; color: #555;">
-                        <strong>Zo lees je dit:</strong> De groene balk toont hoeveel moorden er nu nog plaatsvinden vergeleken met vroeger.
-                        De grijze balk toont hoeveel moorden zijn <em>voorkomen</em>. In Centraal-Amerika zijn dat 58 van elke 100 — duizenden levens per jaar.
-                    </p>
-                </div>
-
-                <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
-                    Bronnen: <a href="https://dataunodc.un.org/dp-intentional-homicide-victims" target="_blank" style="color: var(--ocean-blue);">UN Office on Drugs and Crime</a>,
-                    <a href="https://www.npr.org/2025/12/24/nx-s1-5611466/2025-crime-trends-2026-predictions" target="_blank" style="color: var(--ocean-blue);">NPR Crime Data 2025</a>
-                </div>
-            </div>
-
-            <!-- Veiligheidsgevoel in context -->
-            <div class="safety-context reveal" style="background: white; border: 1px solid var(--soft-gray); padding: 2rem; margin: 2rem 0;">
-                <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem;">Hoe Veilig Voelen Mensen Zich?</h4>
-
-                <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
-                    <div style="flex: 1; min-width: 200px; text-align: center;">
-                        <div class="big-number" style="font-size: 4rem;">73%</div>
-                        <div class="big-number-label">Voelt zich veilig 's nachts</div>
-                        <div style="font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Wereldwijd (Gallup 2024)</div>
-                    </div>
-                    <div style="flex: 2; min-width: 250px;">
-                        <p style="color: #555; margin-bottom: 1rem;">
-                            Dit is een <strong>record</strong> in Gallup's metingen. Nooit eerder voelden zoveel mensen zich veilig om 's nachts alleen door hun buurt te lopen.
-                        </p>
-                        <div style="background: #f5f5f0; padding: 1rem; border-left: 4px solid var(--nature-green);">
-                            <strong>Trend:</strong> In 2006 lag dit percentage op 68%. De stijging van 5 procentpunt lijkt klein, maar vertegenwoordigt honderden miljoenen mensen die zich nu veiliger voelen.
-                        </div>
-                    </div>
-                </div>
-
-                <div style="font-size: 0.85rem; color: #888;">
-                    Bron: <a href="https://news.gallup.com/poll/692816/people-globally-living-better-lives.aspx" target="_blank" style="color: var(--ocean-blue);">Gallup World Poll 2024</a>
-                </div>
-            </div>
-
             <h3 class="reveal">Welzijn: Hoe Gaat Het Met De Mensheid?</h3>
 
             <p class="reveal" style="margin-bottom: 1.5rem;">
@@ -2475,10 +2347,10 @@
         new Chart(forestCtx, {
             type: 'line',
             data: {
-                labels: ['1990-2000', '2000-2010', '2010-2015', '2015-2020', '2020-2025'],
+                labels: ['1990-1995', '1995-2000', '2000-2005', '2005-2010', '2010-2015', '2015-2020', '2020-2025'],
                 datasets: [{
                     label: 'Netto bosverlies (miljoen ha/jaar)',
-                    data: [10.7, 7.8, 5.9, 4.7, 4.12],
+                    data: [11.5, 10.0, 8.5, 7.0, 5.9, 4.7, 4.1],
                     borderColor: '#2d5a27',
                     backgroundColor: 'rgba(45, 90, 39, 0.2)',
                     fill: true,
@@ -2488,7 +2360,7 @@
                     pointBackgroundColor: '#2d5a27'
                 }, {
                     label: 'Bruto ontbossing (miljoen ha/jaar)',
-                    data: [17.6, 13.6, 12.2, 11.5, 10.9],
+                    data: [18.5, 16.7, 14.5, 12.7, 12.2, 11.5, 10.9],
                     borderColor: '#c41e3a',
                     borderDash: [5, 5],
                     backgroundColor: 'transparent',
@@ -2530,6 +2402,77 @@
                 }
             }
         });
+
+        // Forest Bar Chart (Netto bosverlies als staafdiagram)
+        const forestBarCtx = document.getElementById('forestBarChart');
+        if (forestBarCtx) {
+            new Chart(forestBarCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['1990-1995', '1995-2000', '2000-2005', '2005-2010', '2010-2015', '2015-2020', '2020-2025'],
+                    datasets: [{
+                        label: 'Netto bosverlies (miljoen ha/jaar)',
+                        data: [11.5, 10.0, 8.5, 7.0, 5.9, 4.7, 4.1],
+                        backgroundColor: [
+                            'rgba(196, 30, 58, 0.8)',
+                            'rgba(196, 30, 58, 0.7)',
+                            'rgba(180, 80, 50, 0.7)',
+                            'rgba(160, 120, 40, 0.7)',
+                            'rgba(100, 140, 50, 0.7)',
+                            'rgba(60, 120, 50, 0.8)',
+                            'rgba(45, 90, 39, 0.9)'
+                        ],
+                        borderColor: [
+                            '#c41e3a',
+                            '#c41e3a',
+                            '#b45032',
+                            '#a07828',
+                            '#648c32',
+                            '#3c7832',
+                            '#2d5a27'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' miljoen hectare per jaar';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 14,
+                            title: {
+                                display: true,
+                                text: 'Miljoen hectare per jaar',
+                                font: { family: 'Source Sans Pro' }
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         // Access Trend Chart (Basic Needs over time)
         const accessTrendCtx = document.getElementById('accessTrendChart');
